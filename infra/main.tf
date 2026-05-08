@@ -1,4 +1,3 @@
-
 # Get current Azure client config
 data "azurerm_client_config" "current" {}
 
@@ -36,7 +35,7 @@ resource "azurerm_linux_web_app" "backend" {
   }
 
   app_settings = {
-    "ASPNETCORE_ENVIRONMENT" = var.environment
+    "ASPNETCORE_ENVIRONMENT"   = var.environment
     "WEBSITE_RUN_FROM_PACKAGE" = "1"
   }
 
