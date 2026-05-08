@@ -63,3 +63,21 @@ Desktop.ini
 *.bak
 *.swp
 *.swo
+
+
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/terraform.tfvars
+infra/tfplan
+infra/variables.tf
+
+# Node
+AssistIQ-FE/node_modules/
+AssistIQ-FE/.env
+AssistIQ-FE/.env.local
+
+# .NET
+AssistIQ-BE/bin/
+AssistIQ-BE/obj/
+AssistIQ-BE/publish/
