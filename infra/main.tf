@@ -48,7 +48,7 @@ resource "azurerm_linux_web_app" "backend" {
 resource "azurerm_static_web_app" "frontend" {
   name                = "swa-${var.project_name}-${var.environment}"
   resource_group_name = azurerm_resource_group.main.name
-  location            = var.static_web_app_location    
+  location            = var.static_web_app_location
   sku_tier            = "Standard"
 }
 
@@ -90,17 +90,16 @@ resource "azurerm_key_vault" "main" {
     object_id = data.azurerm_client_config.current.object_id
 
     secret_permissions = [
-      "Get", "List", "Set", "Delete"
+      "Get", "List", "Set", "Delete",
     ]
   }
 
-  # Allow the backend app to read secrets
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = azurerm_linux_web_app.backend.identity[0].principal_id
 
     secret_permissions = [
-      "Get", "List"
+      "Get", "List",
     ]
   }
 }
