@@ -13,7 +13,7 @@ resource "azurerm_service_plan" "backend" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   os_type             = "Linux"
-  sku_name            = "P1v3"
+  sku_name            = "B1"
 }
 
 # .NET Backend App Service
@@ -48,7 +48,7 @@ resource "azurerm_linux_web_app" "backend" {
 resource "azurerm_static_web_app" "frontend" {
   name                = "swa-${var.project_name}-${var.environment}"
   resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
+  location            = var.static_web_app_location    
   sku_tier            = "Standard"
 }
 

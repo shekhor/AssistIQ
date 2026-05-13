@@ -27,3 +27,9 @@ variable "db_admin_password" {
   type        = string
   sensitive   = true
 }
+
+variable "static_web_app_location" {
+  description = "Location for Static Web App (limited region availability)"
+  type        = string
+  default     = "eastus2"
+}
