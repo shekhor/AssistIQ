@@ -7,7 +7,7 @@ variable "environment" {
 variable "location" {
   description = "Azure region"
   type        = string
-  default     = "canadacentral"
+  default     = "eastus2"
 }
 
 variable "project_name" {

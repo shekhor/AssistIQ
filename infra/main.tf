@@ -13,7 +13,7 @@ resource "azurerm_service_plan" "backend" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   os_type             = "Linux"
-  sku_name            = "B1"
+  sku_name            = "F1"
 }
 
 # .NET Backend App Service
@@ -49,7 +49,7 @@ resource "azurerm_static_web_app" "frontend" {
   name                = "swa-${var.project_name}-${var.environment}"
   resource_group_name = azurerm_resource_group.main.name
   location            = var.static_web_app_location
-  sku_tier            = "Standard"
+  sku_tier            = "Free"
 }
 
 # Azure SQL Server
@@ -111,10 +111,20 @@ resource "azurerm_key_vault_secret" "db_connection" {
   key_vault_id = azurerm_key_vault.main.id
 }
 
-# Application Insights
+# Log Analytics Workspace (required for Application Insights)
+resource "azurerm_log_analytics_workspace" "main" {
+  name                = "law-${var.project_name}-${var.environment}"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+# Application Insights — updated to use workspace
 resource "azurerm_application_insights" "main" {
   name                = "ai-${var.project_name}-${var.environment}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
+  workspace_id        = azurerm_log_analytics_workspace.main.id    ← add this
   application_type    = "web"
 }
